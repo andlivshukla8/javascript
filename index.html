@@ -3,72 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./script.js" ></script>
+    <script src="./script.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <!-- <button onclick="sayHello()">Click me</button>
-     <script>
-        var pi=3.14;
-        var person='are you god?';
-        var answer='yes i am!';
+    <button onclick="sayHello()">Click me</button>
+    <script>
+        var pi = 3.14; // Define pi before using it
+        var person = 'are you god?';
+        var answer = 'yes i am!';
         document.write(pi + "<br>");
         document.write(person + "<br>");
         document.write(answer + "<br>");
-     </script> -->
-<!--      
-     <p>click button to create a variable and display something</p>
-     <button onclick="myfun()">try it</button>
-     <p id="demo"></p>
-     <script>
-        function myfun()
-        {
-            var carname='welcome';
-            document.getElementById('demo').innerHTML=carname;
+        
+        function sayHello() {
+            alert("Hello!");
         }
-     </script> -->
-     <!-- <script>
-        var num=10;
-        console.log(num);
-        console.log(typeof(num));
-        num=false;
-        console.log(num);
-        console.log(typeof(num));
-        num="arihant";
-        console.log(num);
-        console.log(typeof(num));
-        num=null;
-        console.log(num);
-        console.log(typeof(num));
-        num=undefined;
-        console.log(num);
-        console.log(typeof(num));
-     </script> -->
-<!--      
-     <script>
-        var pi=3.14;
-        var year=2023;
+    </script>
 
-        var na=[1,2,3];
-        var ani=new Array("cat","dog","lion");
-        console.log(ani)
-     </script>
- -->
-
- <p id="demo"></p>
-
- <script>
-    var person={
-        fn:'john',
-        ln:'doe',
-        id:5566,
-        getinfo : function(){
-            return this.fn+" "+this.ln;
+    <p>Click button to create a variable and display something</p>
+    <button onclick="myfun()">Try it</button>
+    <p id="demo"></p>
+    <script>
+        function myfun() {
+            var carname = 'welcome';
+            document.getElementById('demo').innerHTML = carname;
         }
-    };
+    </script>
 
-    document.getElementById("demo").innerHTML = person.getinfo();
- </script>
+    <script>
+        var num = 10;
+        console.log(num);
+        console.log(typeof(num));
+        num = false;
+        console.log(num);
+        console.log(typeof(num));
+        num = "arihant";
+        console.log(num);
+        console.log(typeof(num));
+        num = null;
+        console.log(num);
+        console.log(typeof(num));
+        num = undefined;
+        console.log(num);
+        console.log(typeof(num));
+    </script>
 
+    <script>
+        var year = 2023;
+        var na = [1, 2, 3];
+        var ani = new Array("cat", "dog", "lion");
+        console.log(ani);
+    </script>
+
+    <p id="demo2"></p>
+    <script>
+        var person = {
+            fn: 'john',
+            ln: 'doe',
+            id: 5566,
+            getinfo: function() {
+                return this.fn + " " + this.ln;
+            }
+        };
+
+        document.getElementById("demo2").innerHTML = person.getinfo();
+    </script>
+
+    <script>
+        var person2 = {
+            name: 'Ramesh',
+            age: '30',
+            ismarried: true,
+            address: {
+                street: 'Vinay Nagar',
+                flatNo: '201' // Changed 'flat no' to 'flatNo' for valid syntax
+            }
+        };
+
+        var person3 = new Object();
+        person3.name = 'krishnkant';
+        person3.age = '32'; // Fixed typo from 'persom2age' to 'person3.age'
+        person3.ismarried = true;
+    </script>
 </body>
 </html>

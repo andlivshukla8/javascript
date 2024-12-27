@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Travel Explorer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      color: #2563eb;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group input {
+      width: calc(100% - 100px);
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    .form-group button {
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .form-group button:hover {
+      background-color: #1d4ed8;
+    }
+    .weather-info, .places-info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+    }
+    .weather-info h2, .places-info h2 {
+      margin: 0;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Welcome to Virtual Travel Explorer</h1>
+      <p>Discover destinations, plan your trip, and explore the world from your fingertips.</p>
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="location" placeholder="Enter location" />
+      <button onclick="fetchWeatherAndPlaces()">Get Details</button>
+    </div>
+
+    <div id="weather" class="weather-info" style="display: none;"></div>
+    <div id="places" class="places-info" style="display: none;"></div>
+  </div>
+
+  <script>
+    async function fetchWeatherAndPlaces() {
+      const location = document.getElementById('location').value;
+      const weatherDiv = document.getElementById('weather');
+      const placesDiv = document.getElementById('places');
+
+      if (!location) {
+        weatherDiv.style.display = 'none';
+        placesDiv.style.display = 'none';
+        alert('Please enter a location.');
+        return;
+      }
+
+      try {
+        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=b276ec261d1f1ae340a80a879b111697&units=metric`);
+        const weatherData = await weatherResponse.json();
+
+        if (weatherResponse.ok) {
+          weatherDiv.innerHTML = `
+            <h2>Weather in ${weatherData.name}</h2>
+            <p>Temperature: ${weatherData.main.temp}°C</p>
+            <p>Condition: ${weatherData.weather[0].description}</p>
+          `;
+          weatherDiv.style.display = 'block';
+        } else {
+          weatherDiv.innerHTML = `<p style="color: red;">${weatherData.message}</p>`;
+          weatherDiv.style.display = 'block';
+        }
+
+        const placesData = getBestPlaces(location);
+        if (placesData.length > 0) {
+          placesDiv.innerHTML = `
+            <h2>Best Places to Visit in ${location}</h2>
+            <ul>
+              ${placesData.map(place => `<li>${place.name} - Approx. Fare: $${place.fare}</li>`).join('')}
+            </ul>
+          `;
+          placesDiv.style.display = 'block';
+        } else {
+          placesDiv.innerHTML = `<p>No popular places found for this location.</p>`;
+          placesDiv.style.display = 'block';
+        }
+
+      } catch (error) {
+        weatherDiv.innerHTML = `<p style="color: red;">Error fetching weather data. Please try again later.</p>`;
+        weatherDiv.style.display = 'block';
+        placesDiv.style.display = 'none';
+      }
+    }
+
+    function getBestPlaces(location) {
+      const placesDB = {
+        Paris: [
+          { name: "Eiffel Tower", fare: 30 },
+          { name: "Louvre Museum", fare: 20 },
+          { name: "Notre Dame Cathedral", fare: 15 }
+        ],
+        Tokyo: [
+          { name: "Tokyo Tower", fare: 25 },
+          { name: "Shibuya Crossing", fare: 10 },
+          { name: "Akihabara", fare: 0 }
+        ],
+        NewYork: [
+          { name: "Statue of Liberty", fare: 22 },
+          { name: "Central Park", fare: 0 },
+          { name: "Times Square", fare: 0 }
+        ]
+      };
+
+      return placesDB[location] || [];
+    }
+  </script>
+</body>
+</html>

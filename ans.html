@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var question = "What is 10 + 10?";
+    var answer = 20;
+    var correct = '<img src="data:image/png;base64,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" alt="Correct" height="150" width="250">';
+    var incorrect = '<img src="2.jpg" alt="Incorrect" height="150" width="250">';
+    var response = prompt(question, "0");
+    var feedbackShown = false;
+
+    for (var count = 0; count < 3; count++) {
+      if (response != answer) {
+        confirm("Incorrect! Try again");
+        response = prompt(question, "0");
+        if (count == 1 && !feedbackShown) {
+          alert("Better luck next time");
+          feedbackShown = true;
+        }
+      } else {
+        alert("Correct! Well done");
+        break;
+      }
+    }
+
+    var output = (response == answer) ? correct : incorrect;
+    document.write(output);
+  </script>
+</body>
+</html>
